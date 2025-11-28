@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-crash-2025",
+  "version": "1.0.0",
+  "description": "Node.js crash course code",
+  "license": "MIT",
+  "author": "Jeffrey Isibor",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
