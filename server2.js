@@ -1,4 +1,5 @@
 import { createServer } from 'http';
+import fs from 'fs/promises';
 const PORT = process.env.PORT;
 
 const users = [
@@ -8,8 +9,18 @@ const users = [
 ];
 
 // Logger middleware
-const logger = (req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
+const logger = async (req, res, next) => {
+    const start = Date.now();
+
+    res.on('finish', async () => {
+        const log = `${new Date().toISOString()} ${req.method} ${req.url} ${res.statusCode} ${Date.now() - start}ms\n`;
+
+        try {
+            await fs.appendFile('./server_log.txt', log);
+        } catch (err) {
+            console.error('Loggin in failed:', err);
+        }
+    });
     next();
 }
 
